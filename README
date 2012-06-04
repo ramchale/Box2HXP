@@ -1,1 +1,1 @@
-For a 'getting started' guide and sample project, go to http://www.throwthelookingglass.com/2011/06/box2fp-tutorial-making-games-with-flashpunk-and-box2d/
+Put 'Box2HXP' directory in your Haxe\lib directory and include "Box2HXP" in your application nmml.
