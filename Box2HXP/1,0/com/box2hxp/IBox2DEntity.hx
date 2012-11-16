@@ -33,11 +33,11 @@ interface IBox2DEntity
 	//Entity Collisions
 	private function collide(type:String, x:Float, y:Float):Entity;
 	private function collideTypes(types:Dynamic, x:Float, y:Float):Entity;
-	private function collideWith(e:Entity, x:Float, y:Float):Entity;
+	private function collideWith<E:Entity>(e:E, x:Float, y:Float):E;
 	private function collideRect(x:Float, y:Float, rX:Float, rY:Float, rWidth:Float, rHeight:Float):Bool;
 	private function collidePoint(x:Float, y:Float, pX:Float, pY:Float):Bool;
-	private function collideInto(type:String, x:Float, y:Float, array:Array<Entity>):Void;
-	private function collideTypesInto(types:Array<String>, x:Float, y:Float, array:Array<Entity>):Void;
+	private function collideInto<E:Entity>(type:String, x:Float, y:Float, array:Array<E>):Void;
+	private function collideTypesInto<E:Entity>(types:Array<String>, x:Float, y:Float, array:Array<E>):Void;
 		
 	//Entity getters
 	private function getOnCamera():Bool;

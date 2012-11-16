@@ -129,8 +129,8 @@ class Box2DEntity extends Entity, implements IBox2DEntity
 		if (body != null && body.getType() != B2Body.b2_staticBody)
 		{
 			var pos:B2Vec2 = body.getPosition();
-			x = pos.x * box2dworld.scale;// + width / 2 + 1;
-			y = pos.y * box2dworld.scale;// - height / 2 + 1;
+			x = pos.x * box2dworld.scale - width / 2 + 1;
+			y = pos.y * box2dworld.scale - height / 2 + 1;
 			angleRads = body.getAngle();
 		}
 		super.update();
