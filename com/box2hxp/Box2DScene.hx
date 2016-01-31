@@ -5,72 +5,54 @@ import box2D.common.math.B2Vec2;
 import box2D.dynamics.B2Body;
 import box2D.dynamics.B2DebugDraw;
 import box2D.dynamics.B2World;
-
-import nme.display.Sprite;
+import openfl.display.Sprite;
 
 import com.haxepunk.HXP;
-import com.haxepunk.World;
+import com.haxepunk.Scene;
 import com.haxepunk.utils.Draw;
 
-/**
- * A Flashpunk world which automatically creates and manages a Box2D world within it
- */
-class Box2DWorld extends World
+class Box2DScene extends Scene
 {
-	/**
-	 * Constructor.
-	 */
-	public function new()
+	// Constants
+	
+	/** The default pixel/metre scale */
+	private static inline var DEFAULT_SCALE:Float = 30; // pixels per metre
+	private static inline var DEFAULT_PITERATIONS:Float = 10; // pixels per metre
+	
+	/** The default framerate (use in HXP.Engine constructor if the same) */
+	public static inline var DEFAULT_FRAMERATE:Float = 30;
+	
+	// Varibles
+	
+	/** The default number of position iterations */
+	/** Overridable function for getting the number of position iterations */
+	private var positionIterations:Int = DEFAULT_PITERATIONS;
+	/** The default number of velocity iterations */
+	private static inline var DEFAULT_VITERATIONS : Int = 10; // pixels per metre
+	/** Overridable function for getting the number of velocity iterations */
+	private var velocityIterations:Int = DEFAULT_VITERATIONS;
+	/** Overridable function for getting the framerate */
+	public var framerate:Float = DEFAULT_FRAMERATE;
+	/** Overridable function for getting the scale of the world */
+	public var scale:Float = DEFAULT_SCALE;
+
+	public var b2world:B2World;
+	
+	/** The current pause state */
+	public var paused : Bool;
+	public function pause():Void { paused = true; }
+	public function unpause():Void { paused = false; }
+
+	private var debug:Bool;
+	private var debug_sprite:Sprite;
+
+	public function new() 
 	{
 		super();
 		
-		_paused = false;
+		paused = false;
 		debug = false;
 		b2world = new B2World(new B2Vec2(0.0, 0.0), true);
-	}
-
-	/**
-	 * The Box2D world object
-	 */
-	public var b2world(getB2world, null):B2World;
-	private function getB2world():B2World
-	{
-		return b2world;
-	}
-
-	/** The default framerate (use in HXP.Engine constructor if the same) */
-	public static inline var DEFAULT_FRAMERATE:Float = 30;
-	/** Overridable function for getting the framerate */
-	public var framerate(getFramerate, null):Float;
-	private function getFramerate():Float
-	{
-		return DEFAULT_FRAMERATE;
-	}
-
-	/** The default pixel/metre scale */
-	private static inline var DEFAULT_SCALE:Float = 30; // pixels per metre
-	/** Overridable function for getting the scale of the world */
-	public var scale(getScale, null):Float;
-	private function getScale():Float
-	{
-		return DEFAULT_SCALE;
-	}
-
-	/** The default number of position iterations */
-	private static inline var DEFAULT_PITERATIONS:Float = 10; // pixels per metre
-	/** Overridable function for getting the number of position iterations */
-	private var positionIterations(getPositionIterations, null):Int;
-		private function getPositionIterations():Int
-	{
-		return DEFAULT_PITERATIONS;
-	}
-	/** The default number of velocity iterations */
-	private static inline var DEFAULT_VITERATIONS:Float = 10; // pixels per metre
-	/** Overridable function for getting the number of velocity iterations */
-	private var velocityIterations(getVelocityIterations, null):Int;
-	private function getVelocityIterations():Int
-	{
-		return DEFAULT_VITERATIONS;
 	}
 
 	/**
@@ -142,16 +124,5 @@ class Box2DWorld extends World
 		if (debug)
 		HXP.stage.removeChild(debug_sprite);
 	}
-
-	/** Pauses the game */
-	public function pause():Void { _paused = true; }
-	/** Unpauses the game */
-	public function unpause():Void { _paused = false; }
-	/** The current pause state */
-	public var paused(getPaused, null):Bool;
-	private function getPaused():Bool { return _paused; }
-
-	private var _paused:Bool;
-	private var debug:Bool;
-	private var debug_sprite:Sprite;
+	
 }

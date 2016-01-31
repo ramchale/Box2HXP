@@ -8,8 +8,8 @@ import box2D.common.math.B2Vec2;
 class Box2DUtils
 {
 	/**
-	 * Convert Flashpunk to Box2d Coordinates.
-	 * Note that flashpunk co-ordinates are from top-left, and Box2D
+	 * Convert HaxePunk to Box2d Coordinates.
+	 * Note that HaxePunk co-ordinates are from top-left, and Box2D
 	 * 	coordinates are from the centre.
 	 * @param p		The position (in pixels)
 	 * @param w		The height (in pixels)
@@ -17,8 +17,7 @@ class Box2DUtils
 	 * @param scale	The world scale
 	 * @return		The position (in metres)
 	 */
-	public static function FP2BoxCoords(p:B2Vec2, w:Float, h:Float, 
-						  scale:Float):B2Vec2
+	public static function FP2BoxCoords(p:B2Vec2, w:Float, h:Float, scale:Float):B2Vec2
 	{
 		var ret:B2Vec2 = p.copy();
 		ret.add(new B2Vec2(w/2, h/2));
@@ -27,8 +26,8 @@ class Box2DUtils
 	}
 
 	/**
-	 * Convert Box2d to Flashpunk Coordinates.
-	 * Note that flashpunk co-ordinates are from top-left, and Box2D
+	 * Convert Box2d to HaxePunk Coordinates.
+	 * Note that HaxePunk co-ordinates are from top-left, and Box2D
 	 * 	coordinates are from the centre.
 	 * @param p		The position (in metres)
 	 * @param w		The height (in pixels)
@@ -36,8 +35,7 @@ class Box2DUtils
 	 * @param scale	The world scale
 	 * @return		The position (in pixels)
 	 */
-	public static function Box2FPCoords(p:B2Vec2, w:Float, h:Float, 
-						scale:Float):B2Vec2
+	public static function Box2FPCoords(p:B2Vec2, w:Float, h:Float, scale:Float):B2Vec2
 	{
 		var ret:B2Vec2 = p.copy();
 		ret.multiply(scale);

@@ -1,0 +1,10 @@
+{
+    "name":         "box2d-hxp",
+    "url":          "https://github.com/ramchale/Box2HXP",
+    "license":      "MIT",
+    "tags":         ["game", "HaxePunk", "box2d"],
+    "description":  "HaxePunk port of Box2FP",
+    "version":      "1.0.1",
+    "releasenote":  "Update for Haxe Punk 2.5.6",
+    "contributors": ["djzmo", "Caseus", "ramchale"]
+}
