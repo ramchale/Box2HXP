@@ -1,5 +1,8 @@
 package com.box2hxp;
 
+import box2D.collision.shapes.B2CircleShape;
+import box2D.collision.shapes.B2PolygonShape;
+import box2D.collision.shapes.B2Shape;
 import box2D.common.math.B2Vec2;
 import box2D.dynamics.B2Body;
 import box2D.dynamics.B2BodyDef;
@@ -25,6 +28,13 @@ class Box2DEntity extends Entity
 	
 	/** Get the Box2D body object */
 	public var body:B2Body;
+	
+	public var defaultDensity = 1.0;
+	public var defaultFriction = 0.7;
+	public var defaultRestitution = 0.4;
+	
+	public var graphicalXOffset = 0;
+	public var graphicalYOffest = 0;
 	
 	/**
 	 * Constructor. Sets the graphic to a SuperGraphiclist
@@ -94,8 +104,8 @@ class Box2DEntity extends Entity
 		if (body != null && body.getType() != B2Body.b2_staticBody)
 		{
 			var pos:B2Vec2 = body.getPosition();
-			x = pos.x * box2dScene.scale - width / 2 + 1;
-			y = pos.y * box2dScene.scale - height / 2 + 1;
+			x = (pos.x * box2dScene.scale - width / 2 + 1) + graphicalXOffset;
+			y = (pos.y * box2dScene.scale - height / 2 + 1) + graphicalYOffest;
 		}
 		super.update();
 	}
@@ -112,4 +122,34 @@ class Box2DEntity extends Entity
 		}
 	}
 
+	// Fixture helpers
+	
+	public function addFixture(shape:B2Shape, ?density:Float, ?friction:Float, ?restitution:Float) : B2Fixture
+	{
+		var fixtureDef:B2FixtureDef = new B2FixtureDef();
+		fixtureDef.shape = shape;
+		
+		fixtureDef.density = (density != null) ? density : this.defaultDensity;
+		fixtureDef.friction = (friction != null) ? friction : this.defaultFriction;
+		fixtureDef.restitution = (restitution != null) ? restitution : this.defaultRestitution;
+		
+		return body.createFixture(fixtureDef);
+	}
+	
+	public function addRectangleFixture(width:Float, height:Float, ?density:Float, ?friction:Float, ?restitution:Float) : B2Fixture
+	{
+		var rectangle:B2PolygonShape = new B2PolygonShape();
+		// SetAsBox expects half dimensions
+		
+		rectangle.setAsBox(width * 0.5 * (1 / box2dScene.scale), height * 0.5 * (1 / box2dScene.scale));
+		
+		return addFixture(rectangle, density, friction, restitution);
+	}
+	
+	public function addCircleFixture(radius:Float, ?density:Float, ?friction:Float, ?restitution:Float) : B2Fixture
+	{
+		var circle:B2CircleShape = new B2CircleShape(radius * 1 / box2dScene.scale);
+		
+		return addFixture(circle, density, friction, restitution);
+	}
 }
