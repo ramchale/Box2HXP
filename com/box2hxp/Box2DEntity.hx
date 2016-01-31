@@ -139,9 +139,19 @@ class Box2DEntity extends Entity
 	public function addRectangleFixture(width:Float, height:Float, ?density:Float, ?friction:Float, ?restitution:Float) : B2Fixture
 	{
 		var rectangle:B2PolygonShape = new B2PolygonShape();
-		// SetAsBox expects half dimensions
 		
+		// SetAsBox expects half dimensions
 		rectangle.setAsBox(width * 0.5 * (1 / box2dScene.scale), height * 0.5 * (1 / box2dScene.scale));
+		
+		return addFixture(rectangle, density, friction, restitution);
+	}
+	
+	public function addRectangleFixtureOffset(width:Float, height:Float, xOffset:Float = 0, yOffset:Float = 0, angle:Float = 0, ?density:Float, ?friction:Float, ?restitution:Float) : B2Fixture
+	{
+		var rectangle:B2PolygonShape = new B2PolygonShape();
+		
+		// SetAsBox expects half dimensions	
+		rectangle.setAsOrientedBox(width * 0.5 * (1 / box2dScene.scale), height * 0.5 * (1 / box2dScene.scale), new B2Vec2(xOffset * (1 / box2dScene.scale), yOffset * (1 / box2dScene.scale)), angle);
 		
 		return addFixture(rectangle, density, friction, restitution);
 	}
@@ -149,6 +159,14 @@ class Box2DEntity extends Entity
 	public function addCircleFixture(radius:Float, ?density:Float, ?friction:Float, ?restitution:Float) : B2Fixture
 	{
 		var circle:B2CircleShape = new B2CircleShape(radius * 1 / box2dScene.scale);
+		
+		return addFixture(circle, density, friction, restitution);
+	}
+	
+	public function addCircleFixtureOffset(radius:Float, xOffset:Float = 0, yOffset:Float = 0, ?density:Float, ?friction:Float, ?restitution:Float) : B2Fixture
+	{
+		var circle:B2CircleShape = new B2CircleShape(radius * 1 / box2dScene.scale);
+		circle.setLocalPosition(new B2Vec2(xOffset * (1 / box2dScene.scale), yOffset * (1 / box2dScene.scale)));
 		
 		return addFixture(circle, density, friction, restitution);
 	}
