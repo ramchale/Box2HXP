@@ -1,6 +1,7 @@
 *Note: Still a work in progress, but the basics are working*
 
 Getting started
+---------------
 
 From a command line run
 
@@ -21,23 +22,12 @@ Then in the entity constructor create the box2d body and fixtures
         super(scene, x, y, B2BodyType.KINEMATIC_BODY);
         
         image = new Image("graphics/SomeImage.png");
-        image.x - 3;
+        this.graphic = image;
+		this.graphicalXOffset = -4;
+		this.graphicalYOffest = -10;
 
         this.makeBody(scene.b2world);
-        
-        var fixtureDef:B2FixtureDef = new B2FixtureDef();
-        
-        var rectangle:B2PolygonShape = new B2PolygonShape();
-        // SetAsBox expects half dimensions
-        rectangle.setAsBox(10 * 0.5 * (1 / scene.scale), 30 * 0.5 * (1 / scene.scale));
+		this.addRectangleFixture(10, 30);
 
-        fixtureDef.shape = rectangle;
-        fixtureDef.density = 1.0;
-        fixtureDef.friction = 0.4;
-        fixtureDef.restitution = 0.8;
-        var fixture = body.createFixture(fixtureDef);
-
-        this.graphic = image;
-
-        this.body.setLinearVelocity(new B2Vec2(0, 1));
+		this.body.setLinearVelocity(new B2Vec2(0, 1));
     }
