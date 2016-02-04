@@ -1,4 +1,4 @@
-package com.box2hxp;
+package com.box2dhxp;
 
 import box2D.collision.B2AABB;
 import box2D.common.math.B2Vec2;

@@ -1,4 +1,4 @@
-package com.box2hxp.graphics;
+package com.box2dhxp.graphics;
 
 import com.haxepunk.Graphic;
 import com.haxepunk.graphics.Canvas;
